@@ -18,7 +18,7 @@ class ChatClient:
         self.display_info_panel()
 
     def create_layout(self):
-        # Left-side navigation buttons
+        
         self.left_frame = ctk.CTkFrame(self.master, width=150)
         self.left_frame.pack(side="left", fill="y")
 
@@ -31,11 +31,11 @@ class ChatClient:
         website_button = ctk.CTkButton(self.left_frame, text="Go to Website", command=self.open_website, font=("Arial", 12))
         website_button.pack(pady=10, fill="x")
 
-        # Center area for displaying dynamic content (camera feed)
+        
         self.center_frame = ctk.CTkFrame(self.master)
         self.center_frame.pack(side="left", fill="both", expand=True)
 
-        # Right-side info panel for results and project info
+        
         self.right_frame = ctk.CTkFrame(self.master, width=250)
         self.right_frame.pack(side="right", fill="y")
 
@@ -65,7 +65,7 @@ class ChatClient:
         self.message_entry = ctk.CTkEntry(self.center_frame, width=300)
         self.message_entry.pack(pady=(5, 0))
 
-        send_button = ctk.CTkButton(self.center_frame, text="Send", command=lambda: self.display_message(self.message_entry.get() + ". (You are a skin care professional. Your name is Steve. Answer skin related doubts. Refuse to answer question out of the bounds by saying that it is beyond your limit."))
+        send_button = ctk.CTkButton(self.center_frame, text="Send", command=lambda: self.display_message(self.message_entry.get() + ". (You are a skin care professional. Your name is Steve7. Answer skin related doubts. Refuse to answer question out of the bounds by saying that it is beyond your limit."))
         send_button.pack(pady=(5, 10))
 
     def display_message(self, prompt):
@@ -101,12 +101,12 @@ class ChatClient:
             img = Image.fromarray(frame)
             imgtk = ImageTk.PhotoImage(image=img)
 
-            # Check if the camera label exists, and recreate it if necessary
+            #---
             if not hasattr(self, 'camera_label') or not self.camera_label.winfo_exists():
                 self.camera_label = tk.Label(self.center_frame)
                 self.camera_label.pack(fill="both", expand=True)
 
-            # Update the camera label with the new frame
+            
             self.camera_label.imgtk = imgtk
             self.camera_label.configure(image=imgtk)
 
@@ -114,7 +114,7 @@ class ChatClient:
             if time.time() - self.start_time > 5:
                 self.capture_and_analyze(faces, frame)
             else:
-                # Update the frame every 100 ms
+                #\
                 self.master.after(100, self.show_frame)
         else:
             messagebox.showerror("Error", "Failed to capture image.")
@@ -143,25 +143,25 @@ class ChatClient:
         self.show_analysis_window()
 
     def detect_acne(self, face_roi):
-        # Convert to HSV for color segmentation
+        
         hsv = cv2.cvtColor(face_roi, cv2.COLOR_BGR2HSV)
         
-        # Define lower and upper bounds for reddish colors in HSV
+        
         lower_red = np.array([0, 50, 50])
         upper_red = np.array([10, 255, 255])
         
-        # Create a mask for red regions in the skin (possible acne spots)
+        
         mask = cv2.inRange(hsv, lower_red, upper_red)
         
-        # Use morphological operations to filter out small noise
+        
         kernel = np.ones((3, 3), np.uint8)
         mask = cv2.erode(mask, kernel, iterations=2)
         mask = cv2.dilate(mask, kernel, iterations=2)
         
-        # Find contours in the mask
+        
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
-        # Estimate acne severity based on contour area
+        
         acne_spots = [cnt for cnt in contours if cv2.contourArea(cnt) > 10]
         acne_count = len(acne_spots)
 
@@ -270,7 +270,7 @@ class ChatClient:
             )
 
     def open_website(self):
-        webbrowser.open("https://innerglow-f03fcb.webflow.io")  # Replace with your actual URL
+        webbrowser.open("https://innerglow-f03fcb.webflow.io")  
 
     
 
